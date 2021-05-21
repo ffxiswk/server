@@ -235,6 +235,7 @@ namespace luautils
         // Load globals
         // TODO: Load these as requires
         lua.script_file("./scripts/globals/settings.lua");
+        lua.script_file("./scripts/globals/campaign.lua");
         lua.script_file("./scripts/globals/conquest.lua");
         lua.script_file("./scripts/globals/player.lua");
         roeutils::init();
@@ -4427,10 +4428,9 @@ namespace luautils
 
     void OnCampaignStart(CZone* Zone)
     {
-        auto filename = fmt::format("scripts/zones/{}/campaigns/campaign.lua", Zone->GetName());
+        TracyZoneScoped;
 
-        auto onCampaignStart = loadFunctionFromFile("onCampaignStart", filename);
-
+        auto onCampaignStart = lua["xi"]["campaign"]["onCampaignStart"];
         if (!onCampaignStart.valid())
         {
             ShowWarning("luautils::onCampaignStart\n");
@@ -4448,10 +4448,9 @@ namespace luautils
 
     void OnCampaignEnd(CZone* Zone)
     {
-        auto filename = fmt::format("scripts/zones/{}/campaigns/campaign.lua", Zone->GetName());
+        TracyZoneScoped;
 
-        auto onCampaignEnd = loadFunctionFromFile("onCampaignEnd", filename);
-
+        auto onCampaignEnd = lua["xi"]["campaign"]["onCampaignEnd"];
         if (!onCampaignEnd.valid())
         {
             ShowWarning("luautils::onCampaignEnd\n");
