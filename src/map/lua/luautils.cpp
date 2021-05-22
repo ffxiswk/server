@@ -1,4 +1,4 @@
-/*
+﻿/*
 ===========================================================================
 
   Copyright (c) 2010-2015 Darkstar Dev Teams
@@ -217,6 +217,8 @@ namespace luautils
         set_function("getSpell", &luautils::GetSpell);
         set_function("selectDailyItem", &luautils::SelectDailyItem);
         set_function("GetQuestAndMissionFilenamesList", &luautils::GetQuestAndMissionFilenamesList);
+
+        lua.set_function("SendCampaignUpdate", [](CLuaBaseEntity* entity) { campaign::SendUpdate((CCharEntity*)entity->GetBaseEntity()); });
 
         // Register Sol Bindings
         CLuaAbility::Register();
