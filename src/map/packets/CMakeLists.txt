@@ -20,6 +20,10 @@ set(SOURCES
     blacklist.h
     campaign_map.cpp
     campaign_map.h
+    caught_fish.cpp
+    caught_fish.h
+    caught_monster.cpp
+    caught_monster.h
     change_music.cpp
     change_music.h
     char.cpp
@@ -90,6 +94,8 @@ set(SOURCES
     event_update_string.h
     fishing.cpp
     fishing.h
+    fish_ranking_results.cpp
+    fish_ranking_results.h
     furniture_interact.cpp
     furniture_interact.h
     guild_menu.cpp

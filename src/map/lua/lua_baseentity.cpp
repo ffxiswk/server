@@ -2369,9 +2369,9 @@ void CLuaBaseEntity::setRotation(uint8 rotation)
 
 void CLuaBaseEntity::setPos(sol::variadic_args va)
 {
-    float x = 0;
-    float y = 0;
-    float z = 0;
+    float x        = 0;
+    float y        = 0;
+    float z        = 0;
     uint8 rotation = 0;
 
     if (va[0].is<sol::table>())
@@ -5946,7 +5946,7 @@ void CLuaBaseEntity::setMissionStatus(uint8 missionLogID, sol::object const& arg
             return;
         }
         uint32 missionStatus = (PChar->m_missionLog[missionLogID].statusUpper << 16) | PChar->m_missionLog[missionLogID].statusLower;
-        uint32 mask  = ~(0xF << (4 * missionStatusPos));
+        uint32 mask          = ~(0xF << (4 * missionStatusPos));
 
         missionStatus &= mask;
         missionStatus |= missionStatusValue << (4 * missionStatusPos);
@@ -11601,7 +11601,7 @@ void CLuaBaseEntity::reduceBurden(float percentReduction, sol::object const& int
 {
     XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype == TYPE_NPC);
 
-    auto* PEntity = static_cast<CCharEntity*>(m_PBaseEntity);
+    auto* PEntity    = static_cast<CCharEntity*>(m_PBaseEntity);
     auto* PAutomaton = dynamic_cast<CAutomatonEntity*>(PEntity->PPet);
 
     if (!PAutomaton)
@@ -12808,6 +12808,18 @@ void CLuaBaseEntity::addDropListModification(uint16 id, uint16 newRate, sol::var
     PMob->m_DropListModifications[id] = std::pair<uint16, uint8>(newRate, dropType);
 }
 
+/************************************************************************
+ *  Function: GetCurrentFishRankingScore()
+ *  Purpose : Get current fish contest ranking score for player
+ *  Example : player:getCurrentFishRankingScore()
+ ************************************************************************/
+uint16 CLuaBaseEntity::getCurrentFishRankingScore()
+{
+    XI_DEBUG_BREAK_IF(m_PBaseEntity->objtype != TYPE_PC);
+
+    return fishingutils::GetCurrentFishRankingScore(m_PBaseEntity->id);
+}
+
 //==========================================================//
 
 void CLuaBaseEntity::Register()
@@ -13519,6 +13531,9 @@ void CLuaBaseEntity::Register()
 
     SOL_REGISTER("getPlayerRegionInZone", CLuaBaseEntity::getPlayerRegionInZone);
     SOL_REGISTER("updateToEntireZone", CLuaBaseEntity::updateToEntireZone);
+
+    // Fishing
+    SOL_REGISTER("getCurrentFishRankingScore", CLuaBaseEntity::getCurrentFishRankingScore);
 }
 
 //==========================================================//
